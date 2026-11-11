@@ -6,34 +6,53 @@ export default function Navbar() {
   const navigate = useNavigate()
 
   return (
-    <header className="navbar">
-      <div className="container navbar-inner">
-        <Link to="/" className="logo">🚶 Прогулки вместе</Link>
-        <nav className="nav-links">
-          <NavLink to="/" end>Прогулки</NavLink>
-          {user ? (
-            <>
-              <NavLink to="/walks/new">Создать</NavLink>
-              <NavLink to="/my">Мои прогулки</NavLink>
-              <NavLink to="/profile">{user.username}</NavLink>
-              <button
-                className="btn btn-ghost"
-                onClick={() => {
-                  logout()
-                  navigate('/')
-                }}
-              >
-                Выйти
-              </button>
-            </>
-          ) : (
-            <>
-              <NavLink to="/login">Вход</NavLink>
-              <Link to="/register" className="btn">Регистрация</Link>
-            </>
-          )}
-        </nav>
-      </div>
-    </header>
+    <>
+      <header className="navbar">
+        <div className="container navbar-inner">
+          <Link to="/" className="logo">🚶 Прогулки вместе</Link>
+          <nav className="nav-links">
+            <NavLink to="/" end>Прогулки</NavLink>
+            {user ? (
+              <>
+                <NavLink to="/walks/new">Создать</NavLink>
+                <NavLink to="/my">Мои прогулки</NavLink>
+                <NavLink to="/profile">{user.username}</NavLink>
+                <button
+                  className="btn btn-ghost"
+                  onClick={() => {
+                    logout()
+                    navigate('/')
+                  }}
+                >
+                  Выйти
+                </button>
+              </>
+            ) : (
+              <>
+                <NavLink to="/login">Вход</NavLink>
+                <Link to="/register" className="btn">Регистрация</Link>
+              </>
+            )}
+          </nav>
+        </div>
+      </header>
+
+      {/* Нижняя панель вкладок — показывается только на телефоне */}
+      <nav className="tabbar">
+        <NavLink to="/" end><span className="ic">🏠</span>Прогулки</NavLink>
+        {user ? (
+          <>
+            <NavLink to="/walks/new"><span className="ic">➕</span>Создать</NavLink>
+            <NavLink to="/my"><span className="ic">📋</span>Мои</NavLink>
+            <NavLink to="/profile"><span className="ic">👤</span>Профиль</NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink to="/login"><span className="ic">🔑</span>Вход</NavLink>
+            <NavLink to="/register"><span className="ic">📝</span>Регистрация</NavLink>
+          </>
+        )}
+      </nav>
+    </>
   )
 }

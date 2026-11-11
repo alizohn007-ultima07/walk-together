@@ -1,10 +1,12 @@
 import { FormEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { api, errorMessage } from '../api'
 import { useAuthStore } from '../store/authStore'
 import type { User } from '../types'
 
 export default function ProfilePage() {
-  const { user, setUser } = useAuthStore()
+  const { user, setUser, logout } = useAuthStore()
+  const navigate = useNavigate()
   const [city, setCity] = useState(user?.city ?? '')
   const [about, setAbout] = useState(user?.about ?? '')
   const [msg, setMsg] = useState('')
@@ -37,6 +39,16 @@ export default function ProfilePage() {
         <textarea value={about} onChange={(e) => setAbout(e.target.value)} rows={5} maxLength={2000} />
       </label>
       <button className="btn">Сохранить</button>
+      <button
+        type="button"
+        className="btn btn-ghost"
+        onClick={() => {
+          logout()
+          navigate('/')
+        }}
+      >
+        Выйти из аккаунта
+      </button>
     </form>
   )
 }

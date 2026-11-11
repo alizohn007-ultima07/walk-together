@@ -11,6 +11,8 @@
 | Backend | Python 3.10+, FastAPI, SQLAlchemy 2, Alembic, Pydantic 2, JWT (PyJWT), bcrypt, Uvicorn |
 | БД и окружение | PostgreSQL 16, pgAdmin 4, Docker / Docker Desktop |
 
+> 📱 **Мобильное приложение (PWA и Android APK)** — см. файл [MOBILE.md](MOBILE.md).
+
 ## Структура проекта
 
 ```

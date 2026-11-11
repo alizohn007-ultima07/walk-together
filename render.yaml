@@ -1,0 +1,24 @@
+databases:
+  - name: walks-db
+    databaseName: walks
+    user: walks
+    plan: free
+
+services:
+  - type: web
+    name: walks-backend
+    runtime: python
+    rootDir: backend          # Ключевой момент: указывает на папку бэкенда
+    buildCommand: pip install -r requirements.txt
+    # Ключевой момент: используйте $PORT, который предоставляет Render
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:     # Автоматически получает строку подключения к БД
+          name: walks-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true  # Автоматически генерирует безопасный ключ
+      - key: CORS_ORIGINS
+        value: https://your-frontend-url.com  # Замените на ваш реальный фронтенд-домен
+    healthCheckPath: /healthz  # Рекомендуется: предотвращает сбой деплоя из-за проблем с БД

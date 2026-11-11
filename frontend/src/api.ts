@@ -2,7 +2,10 @@ import axios from 'axios'
 
 export const TOKEN_KEY = 'walks_token'
 
-export const api = axios.create({ baseURL: '/api' })
+// В вебе запросы идут на тот же сайт (/api), в мобильном приложении — на адрес сервера из VITE_API_URL
+const API_URL = ((import.meta.env.VITE_API_URL as string | undefined) ?? '').replace(/\/+$/, '')
+
+export const api = axios.create({ baseURL: `${API_URL}/api` })
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)
